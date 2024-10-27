@@ -1,9 +1,9 @@
 using UnityEngine;
 
-[RequireComponent(typeof(AnimatorLogic), typeof(PlayerMover))]
+[RequireComponent(typeof(PlayerAnimator), typeof(PlayerMover))]
 public class InputHandler : MonoBehaviour
 {
-    private AnimatorLogic _animatorLogic;
+    private PlayerAnimator _animatorLogic;
     private PlayerMover _playerMover;
     private string _horizontal = "Horizontal";
     private string _buttonSpace = "space";
@@ -13,7 +13,7 @@ public class InputHandler : MonoBehaviour
 
     private void Awake()
     {
-        _animatorLogic = GetComponent<AnimatorLogic>();
+        _animatorLogic = GetComponent<PlayerAnimator>();
         _playerMover = GetComponent<PlayerMover>();
     }
 

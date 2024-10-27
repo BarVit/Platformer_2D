@@ -2,15 +2,10 @@ using UnityEngine;
 
 public class Wallet : MonoBehaviour
 {
-    public int CoinsCount { get; private set; }
+    private int _money = 0;
 
-    private void Awake()
+    public void TakeCoin(int value)
     {
-        CoinsCount = 0;
-    }
-
-    public void GetCoin()
-    {
-       CoinsCount++;
+        _money += value;
     }
 }

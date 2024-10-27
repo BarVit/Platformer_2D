@@ -1,25 +1,24 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer), typeof(InputHandler))]
-[RequireComponent(typeof(AnimatorLogic))]
+[RequireComponent(typeof(Rigidbody2D), typeof(InputHandler), typeof(PlayerAnimator))]
 public class PlayerMover : MonoBehaviour
 {
     [SerializeField] private GroundSensor _groundSensor;
     [SerializeField] private float _jumpForce = 7.5f;
 
-    private AnimatorLogic _animatorLogic;
+    private PlayerAnimator _animatorLogic;
     private InputHandler _inputHandler;
-    private SpriteRenderer _spriteRenderer;
     private Rigidbody2D _rigidbody2D;
+    private Vector3 _rightDirection = new Vector3(0, 0, 0);
+    private Vector3 _leftDirection = new Vector3(0, 180, 0);
 
     public float Speed { get; private set; }
     public bool Grounded { get; private set; }
 
     private void Awake()
     {
-        _animatorLogic = GetComponent<AnimatorLogic>();
+        _animatorLogic = GetComponent<PlayerAnimator>();
         _inputHandler = GetComponent<InputHandler>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         Speed = 4f;
     }
@@ -58,8 +57,8 @@ public class PlayerMover : MonoBehaviour
     private void SetFaceDirection()
     {
         if (_inputHandler.InputX > 0)
-            _spriteRenderer.flipX = false;
+            transform.rotation = Quaternion.Euler(_rightDirection);
         else if (_inputHandler.InputX < 0)
-            _spriteRenderer.flipX = true;
+            transform.rotation = Quaternion.Euler(_leftDirection);
     }
 }

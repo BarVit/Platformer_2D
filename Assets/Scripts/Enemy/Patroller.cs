@@ -1,20 +1,18 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer), typeof(EnemyAnimatorLogic))]
+[RequireComponent(typeof(Rigidbody2D), typeof(EnemyAnimator))]
 public class Patroller : MonoBehaviour
 {
     [SerializeField] private float _speed = 2.0f;
+    [SerializeField] private Transform[] _waypointsTransforms;
 
-    private EnemyAnimatorLogic _enemyAnimatorLogic;
+    private EnemyAnimator _enemyAnimatorLogic;
     private Rigidbody2D _rigidbody2D;
-    private SpriteRenderer _spriteRenderer;
-    private List<Vector3> _waypoints;
-    private Vector3 _firstPosition;
-    private Vector3 _secondPositon;
+    private Vector3[] _waypoints;
     private Vector3 _waypoint;
-    private float _secondPositionOffsetX = -4.5f;
+    private Vector3 _rightDirection = new Vector3(0, 180, 0);
+    private Vector3 _leftDirection = new Vector3(0, 0, 0);
     private float _stayAtWaypointTime = 2f;
     private int _index = 0;
     private int _direction = 0;
@@ -22,17 +20,12 @@ public class Patroller : MonoBehaviour
 
     private void Awake()
     {
-        _enemyAnimatorLogic = GetComponent<EnemyAnimatorLogic>();
+        _enemyAnimatorLogic = GetComponent<EnemyAnimator>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-        _firstPosition = new Vector3(transform.position.x, transform.position.y, 0);
-        _secondPositon = new Vector3(transform.position.x + _secondPositionOffsetX, transform.position.y, 0);
+        _waypoints = new Vector3[_waypointsTransforms.Length];
 
-        _waypoints = new()
-        {
-            _firstPosition,
-            _secondPositon
-        };
+        for (int i = 0; i < _waypointsTransforms.Length; i++)
+            _waypoints[i] = _waypointsTransforms[i].position;
 
         _waypoint = _waypoints[_index];
     }
@@ -47,9 +40,9 @@ public class Patroller : MonoBehaviour
     private void SetFaceDirection()
     {
         if (_direction == 1)
-            _spriteRenderer.flipX = true;
+            transform.rotation = Quaternion.Euler(_rightDirection);
         else if (_direction == -1)
-            _spriteRenderer.flipX = false;
+            transform.rotation = Quaternion.Euler(_leftDirection);
     }
 
     private void SetAnimation()
@@ -100,7 +93,7 @@ public class Patroller : MonoBehaviour
 
     private Vector3 GetNextWaypoint()
     {
-        _index = ++_index % _waypoints.Count;
+        _index = ++_index % _waypoints.Length;
         return _waypoints[_index];
     }
 }

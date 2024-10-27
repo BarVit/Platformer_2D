@@ -1,10 +1,10 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
-public class EnemyAnimatorLogic : MonoBehaviour
+public class EnemyAnimator : MonoBehaviour
 {
     private Animator _animator;
-    private string _animatorSpeed = "speed";
+    private int _speedHash = Animator.StringToHash("speed");
 
     private void Awake()
     {
@@ -13,6 +13,6 @@ public class EnemyAnimatorLogic : MonoBehaviour
 
     public void SetSpeed(float speed)
     {
-        _animator.SetFloat(_animatorSpeed, speed);
+        _animator.SetFloat(_speedHash, speed);
     }
 }
