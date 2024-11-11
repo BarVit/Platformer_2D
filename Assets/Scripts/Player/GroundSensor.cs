@@ -8,11 +8,13 @@ public class GroundSensor : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        _colliders++;
+        if(collision.GetComponent<Ground>() != null)
+            _colliders++;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        _colliders--;
+        if(collision.GetComponent<Ground>() != null)
+            _colliders--;
     }
 }

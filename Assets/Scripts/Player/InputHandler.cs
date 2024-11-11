@@ -3,8 +3,8 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerAnimator), typeof(PlayerMover))]
 public class InputHandler : MonoBehaviour
 {
-    private PlayerAnimator _animatorLogic;
     private PlayerMover _playerMover;
+    private PlayerAnimator _playerAnimator;
     private string _horizontal = "Horizontal";
     private string _buttonSpace = "space";
     private int _leftButton = 0;
@@ -13,18 +13,14 @@ public class InputHandler : MonoBehaviour
 
     private void Awake()
     {
-        _animatorLogic = GetComponent<PlayerAnimator>();
         _playerMover = GetComponent<PlayerMover>();
+        _playerAnimator = GetComponent<PlayerAnimator>();
     }
 
     private void Update()
     {
         HandleInput();
-
-        if (InputX != 0)
-            _animatorLogic.SetSpeed(_playerMover.Speed);
-        else
-            _animatorLogic.SetSpeed(0);
+        SetAnimation();
     }
 
     private void HandleInput()
@@ -32,12 +28,16 @@ public class InputHandler : MonoBehaviour
         InputX = Input.GetAxis(_horizontal);
 
         if (Input.GetMouseButtonDown(_leftButton))
-        {
-            _animatorLogic.Attack();
-        }
+            _playerAnimator.Attack();
         else if (Input.GetKeyDown(_buttonSpace))
-        {
             _playerMover.Jump();
-        }
+    }
+
+    private void SetAnimation()
+    {
+        if (InputX != 0)
+            _playerAnimator.SetSpeed(_playerMover.Speed);
+        else
+            _playerAnimator.SetSpeed(0);
     }
 }
