@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyPatroller), typeof(EnemyAttacker))]
 public class BehaviourController : MonoBehaviour
 {
-    [SerializeField] private TargetFinder targetFinder;
+    [SerializeField] private TargetFinder _targetFinder;
 
     private EnemyPatroller _patroller;
     private EnemyAttacker _enemyAttacker;
@@ -14,13 +14,25 @@ public class BehaviourController : MonoBehaviour
         _enemyAttacker = GetComponent<EnemyAttacker>();
     }
 
+    private void OnEnable()
+    {
+        _targetFinder.Entered += SetAttackBehaviour;
+        _targetFinder.Exited += SetPatrolBehaviour;
+    }
+
+    private void OnDisable()
+    {
+        _targetFinder.Entered -= SetAttackBehaviour;
+        _targetFinder.Exited -= SetPatrolBehaviour;
+    }
+
     private void Start()
     {
         _enemyAttacker.StopAttack();
         _patroller.StartPatrol();
     }
 
-    public void SetAttackBehaviour(PlayerHealth player)
+    public void SetAttackBehaviour(Player player)
     {
         _enemyAttacker.StartAttack(player);
         _patroller.StopPatrol();

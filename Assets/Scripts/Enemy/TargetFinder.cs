@@ -1,22 +1,24 @@
 using UnityEngine;
+using System;
 
 public class TargetFinder : MonoBehaviour
 {
-    [SerializeField] private BehaviourController _behaviourController;
+    public event Action<Player> Entered;
+    public event Action Exited;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent(out PlayerHealth player))
+        if (collision.TryGetComponent(out Player player))
         {
-            _behaviourController.SetAttackBehaviour(player);
+            Entered?.Invoke(player);
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.GetComponent<PlayerHealth>() != null)
+        if (collision.GetComponent<Player>() != null)
         {
-            _behaviourController.SetPatrolBehaviour();
+            Exited?.Invoke();
         }
     }
 }

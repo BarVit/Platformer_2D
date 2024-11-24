@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Linq;
 
-[RequireComponent(typeof(Weapon))]
+[RequireComponent(typeof(Weapon), typeof(IDamageable))]
 public class DamageApllier : MonoBehaviour
 {
     [SerializeField] private Transform _attackPoint;
@@ -17,16 +17,15 @@ public class DamageApllier : MonoBehaviour
 
     public void Apply()
     {
-        Collider2D[] damageTakers = Physics2D.OverlapCircleAll(_attackPoint.position, _weapon.Range);
+        Collider2D[] targets = Physics2D.OverlapCircleAll(_attackPoint.position, _weapon.Range);
 
-        damageTakers = damageTakers.Where(enemy => enemy.GetComponent<IDamageable>() != null).ToArray();
+        IDamageable[] damageTakers = targets.Where(target => target.GetComponent<IDamageable>() != null)
+            .Select(target => target.GetComponent<IDamageable>()).ToArray();
 
-        foreach (Collider2D damageTaker in damageTakers)
+        foreach (IDamageable damageTaker in damageTakers)
         {
-            IDamageable target = damageTaker.GetComponent<IDamageable>();
-
-            if (target != _attacker)
-                target.TakeDamage(_weapon.Damage);
+            if (damageTaker != _attacker)
+                damageTaker.TakeDamage(_weapon.Damage);
         }
     }
 }

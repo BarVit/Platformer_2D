@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(EnemyMover), typeof(EnemyAnimator), typeof(Weapon))]
+[RequireComponent(typeof(EnemyMover), typeof(EnemyAnimator))]
 public class EnemyAttacker : MonoBehaviour
 {
     [SerializeField] private float _hitRangeX = 1f;
@@ -9,7 +9,7 @@ public class EnemyAttacker : MonoBehaviour
 
     private EnemyMover _enemyMover;
     private EnemyAnimator _enemyAnimator;
-    private PlayerHealth _target;
+    private Player _target;
     private float _cooldown = 0;
     private int _direction = 0;
     private bool _isAttacking = false;
@@ -35,7 +35,7 @@ public class EnemyAttacker : MonoBehaviour
         }
     }
 
-    public void StartAttack(PlayerHealth player)
+    public void StartAttack(Player player)
     { 
         _target = player;
         _isAttacking = true;
