@@ -1,13 +1,13 @@
 using UnityEngine;
 using System.Linq;
 
-[RequireComponent(typeof(Weapon), typeof(IDamageable))]
+[RequireComponent(typeof(Weapon))]
 public class DamageApllier : MonoBehaviour
 {
     [SerializeField] private Transform _attackPoint;
 
-    private IDamageable _attacker;
     private Weapon _weapon;
+    private IDamageable _attacker;
 
     private void Awake()
     {

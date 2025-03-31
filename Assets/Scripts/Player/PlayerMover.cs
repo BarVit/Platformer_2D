@@ -1,14 +1,13 @@
 using UnityEngine;
 
-[RequireComponent(typeof(FaceDirectioneer), typeof(PlayerAnimator), typeof(InputHandler))]
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(InputHandler), typeof(Rigidbody2D))]
 public class PlayerMover : MonoBehaviour
 {
     [SerializeField] private GroundSensor _groundSensor;
+    [SerializeField] private FaceDirectioneer _faceDirectioneer;
+    [SerializeField] private PlayerAnimator _animator;
     [SerializeField] private float _jumpForce = 7.5f;
 
-    private FaceDirectioneer _faceDirectioneer;
-    private PlayerAnimator _playerAnimator;
     private InputHandler _inputHandler;
     private Rigidbody2D _rigidbody2D;
     private int _direction = 0;
@@ -18,8 +17,6 @@ public class PlayerMover : MonoBehaviour
 
     private void Awake()
     {
-        _faceDirectioneer = GetComponent<FaceDirectioneer>();
-        _playerAnimator = GetComponent<PlayerAnimator>();
         _inputHandler = GetComponent<InputHandler>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         Speed = 4f;
@@ -39,7 +36,7 @@ public class PlayerMover : MonoBehaviour
         {
             Grounded = false;
             _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, _jumpForce);
-            _playerAnimator.Jump();
+            _animator.Jump();
         }
     }
 
@@ -48,26 +45,29 @@ public class PlayerMover : MonoBehaviour
         if (_groundSensor.IsGrounded == false && Grounded)
         {
             Grounded = false;
-            _playerAnimator.ChangeGroundedBool(Grounded);
+            _animator.ChangeGroundedBool(Grounded);
         }
         else if (_groundSensor.IsGrounded && Grounded == false)
         {
             Grounded = true;
-            _playerAnimator.ChangeGroundedBool(Grounded);
+            _animator.ChangeGroundedBool(Grounded);
         }
     }
 
     private void DefineDirection()
     {
+        int leftDirection = -1;
+        int rightDirection = 1;
+
         if (_inputHandler.InputX > 0)
-            _direction = 1;
+            _direction = rightDirection;
         else if (_inputHandler.InputX < 0)
-            _direction = -1;
+            _direction = leftDirection;
     }
 
     private void SetFaceDirection()
     {
-        _faceDirectioneer.SetFaceDirection(transform, _direction);
+        _faceDirectioneer.SetFaceDirection(_direction);
     }
 
     private void Move()

@@ -1,10 +1,11 @@
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerAnimator), typeof(PlayerMover))]
+[RequireComponent(typeof(PlayerMover))]
 public class InputHandler : MonoBehaviour
 {
-    private PlayerMover _playerMover;
-    private PlayerAnimator _playerAnimator;
+    [SerializeField] private PlayerAnimator _animator;
+
+    private PlayerMover _mover;
     private string _horizontal = "Horizontal";
     private string _buttonSpace = "space";
     private int _leftButton = 0;
@@ -13,8 +14,7 @@ public class InputHandler : MonoBehaviour
 
     private void Awake()
     {
-        _playerMover = GetComponent<PlayerMover>();
-        _playerAnimator = GetComponent<PlayerAnimator>();
+        _mover = GetComponent<PlayerMover>();
     }
 
     private void Update()
@@ -28,16 +28,16 @@ public class InputHandler : MonoBehaviour
         InputX = Input.GetAxis(_horizontal);
 
         if (Input.GetMouseButtonDown(_leftButton))
-            _playerAnimator.Attack();
+            _animator.Attack();
         else if (Input.GetKeyDown(_buttonSpace))
-            _playerMover.Jump();
+            _mover.Jump();
     }
 
     private void SetAnimation()
     {
         if (InputX != 0)
-            _playerAnimator.SetSpeed(_playerMover.Speed);
+            _animator.SetSpeed(_mover.Speed);
         else
-            _playerAnimator.SetSpeed(0);
+            _animator.SetSpeed(0);
     }
 }

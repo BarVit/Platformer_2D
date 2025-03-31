@@ -3,6 +3,8 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class PlayerAnimator : MonoBehaviour
 {
+    [SerializeField] private DamageApllier _damageApllier;
+
     private Animator _animator;
     private int _speedHash = Animator.StringToHash("speed");
     private int _groundedHash = Animator.StringToHash("grounded");
@@ -33,5 +35,10 @@ public class PlayerAnimator : MonoBehaviour
     public void SetSpeed(float speed)
     {
         _animator.SetFloat(_speedHash, speed);
+    }
+
+    public void ApplyDamage()
+    {
+        _damageApllier.Apply();
     }
 }

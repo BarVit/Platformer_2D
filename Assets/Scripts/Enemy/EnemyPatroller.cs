@@ -1,26 +1,27 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyMover), typeof(EnemyAnimator))]
+[RequireComponent(typeof(EnemyMover))]
 public class EnemyPatroller : MonoBehaviour
 {
     [SerializeField] private Transform[] _waypointsTransforms;
+    [SerializeField] private EnemyAnimator _animator;
+    [SerializeField] private FaceDirectioneer _spriteDirection;
 
-    private EnemyMover _enemyMover;
-    private EnemyAnimator _enemyAnimator;
+    private EnemyMover _mover;
     private Coroutine _waiterAtWaypoint;
     private Vector3[] _waypoints;
     private Vector3 _waypoint;
     private float _waitAtWaypointTime = 2f;
     private int _index = 0;
     private int _direction = 0;
+    private int _nonDirection = 0;
     private bool _isWaiting = false;
     private bool _isPatrolling = true;
 
     private void Awake()
     {
-        _enemyMover = GetComponent<EnemyMover>();
-        _enemyAnimator = GetComponent<EnemyAnimator>();
+        _mover = GetComponent<EnemyMover>();
         _waypoints = new Vector3[_waypointsTransforms.Length];
 
         for (int i = 0; i < _waypointsTransforms.Length; i++)
@@ -35,7 +36,7 @@ public class EnemyPatroller : MonoBehaviour
         {
             DefineDirection();
             SetAnimation();
-            _enemyMover.SetFaceDirection(_direction);
+            _spriteDirection.SetFaceDirection(_direction);
             Patrol();
         }
     }
@@ -55,47 +56,51 @@ public class EnemyPatroller : MonoBehaviour
 
     private void DefineDirection()
     {
+        int leftDirection = -1;
+        int rightDirection = 1;
+
         if (_isWaiting)
-            _direction = 0;
-        else if (transform.position.x <= _waypoint.x && _direction == -1)
-            _direction = 0;
-        else if (transform.position.x >= _waypoint.x && _direction == 1)
-            _direction = 0;
+            _direction = _nonDirection;
+        else if (transform.position.x <= _waypoint.x && _direction == leftDirection)
+            _direction = _nonDirection;
+        else if (transform.position.x >= _waypoint.x && _direction == rightDirection)
+            _direction = _nonDirection;
         else
         {
             if (transform.position.x < _waypoint.x)
-                _direction = 1;
+                _direction = rightDirection;
             else if (transform.position.x > _waypoint.x)
-                _direction = -1;
+                _direction = leftDirection;
         }
     }
 
     private void SetAnimation()
     {
-        if (_direction == 0)
-            _enemyAnimator.SetSpeed(0);
+        if (_direction == _nonDirection)
+            _animator.SetSpeed(0);
         else
-            _enemyAnimator.SetSpeed(_enemyMover.Speed);
+            _animator.SetSpeed(_mover.Speed);
     }
 
     private void Patrol()
     {
-        if (_direction == 0 && _isWaiting == false)
+        if (_direction == _nonDirection && _isWaiting == false)
         {
             _isWaiting = true;
-            _enemyMover.Stop();
+            _mover.Stop();
             _waiterAtWaypoint = StartCoroutine(WaitAtWaypoint());
         }
         else
         {
-            _enemyMover.Move(_direction);
+            _mover.Move(_direction);
         }
     }
 
     private IEnumerator WaitAtWaypoint()
     {
-        float randomMultiplayer = Random.Range(0.5f, 2f);
-        float waitingTime = _waitAtWaypointTime * randomMultiplayer;
+        float minTimeMultiplier = 0.5f;
+        float maxTimeMultiplier = 2f;
+        float waitingTime = _waitAtWaypointTime * Random.Range(minTimeMultiplier, maxTimeMultiplier);
 
         while (waitingTime > 0)
         {

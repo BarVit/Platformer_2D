@@ -1,24 +1,25 @@
 using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(EnemyMover), typeof(EnemyAnimator))]
+[RequireComponent(typeof(EnemyMover))]
 public class EnemyAttacker : MonoBehaviour
 {
     [SerializeField] private float _hitRangeX = 1f;
     [SerializeField] private float _hitRate = 1.1f;
+    [SerializeField] private EnemyAnimator _animator;
+    [SerializeField] private FaceDirectioneer _spriteDirection;
 
-    private EnemyMover _enemyMover;
-    private EnemyAnimator _enemyAnimator;
+    private EnemyMover _mover;
     private Player _target;
     private float _cooldown = 0;
     private int _direction = 0;
+    private int _nonDirection = 0;
     private bool _isAttacking = false;
     private bool _isAttackEnded = true;
 
     private void Awake()
     {
-        _enemyMover = GetComponent<EnemyMover>();
-        _enemyAnimator = GetComponent<EnemyAnimator>();
+        _mover = GetComponent<EnemyMover>();
     }
 
     private void Update()
@@ -26,7 +27,7 @@ public class EnemyAttacker : MonoBehaviour
         if (_isAttacking && _target != null)
         {
             DefineDirection();
-            _enemyMover.SetFaceDirection(_direction);
+            _spriteDirection.SetFaceDirection(_direction);
 
             if (IsInHitRange() && _isAttackEnded)
                 StartCoroutine(Hit());
@@ -54,19 +55,22 @@ public class EnemyAttacker : MonoBehaviour
 
     private void DefineDirection()
     {
+        int leftDirection = -1;
+        int rightDirection = 1;
+
         if (transform.position.x > _target.transform.position.x && IsInHitRange() == false)
-            _direction = -1;
+            _direction = leftDirection;
         else if (transform.position.x < _target.transform.position.x && IsInHitRange() == false)
-            _direction = 1;
+            _direction = rightDirection;
         else
-            _direction = 0;
+            _direction = _nonDirection;
     }
 
     private IEnumerator Hit()
     {
-        _enemyMover.Stop();
-        _enemyAnimator.SetSpeed(0);
-        _enemyAnimator.Attack();
+        _mover.Stop();
+        _animator.SetSpeed(0);
+        _animator.Attack();
         _isAttackEnded = false;
         _cooldown = _hitRate;
 
@@ -82,11 +86,11 @@ public class EnemyAttacker : MonoBehaviour
 
     private void Approach()
     {
-        _enemyMover.Move(_direction);
+        _mover.Move(_direction);
 
-        if (_direction == 0)
-            _enemyAnimator.SetSpeed(0);
+        if (_direction == _nonDirection)
+            _animator.SetSpeed(0);
         else
-            _enemyAnimator.SetSpeed(_enemyMover.Speed);
+            _animator.SetSpeed(_mover.Speed);
     }
 }
