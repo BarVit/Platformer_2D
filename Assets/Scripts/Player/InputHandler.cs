@@ -1,43 +1,34 @@
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerMover))]
 public class InputHandler : MonoBehaviour
 {
-    [SerializeField] private PlayerAnimator _animator;
-
-    private PlayerMover _mover;
     private string _horizontal = "Horizontal";
     private string _buttonSpace = "space";
     private int _leftButton = 0;
+    private bool _isJump = false;
+    private bool _isAttack = false;
 
-    public float InputX { get; private set; }
-
-    private void Awake()
-    {
-        _mover = GetComponent<PlayerMover>();
-    }
+    public float Direction { get; private set; }
 
     private void Update()
     {
-        HandleInput();
-        SetAnimation();
-    }
+        Direction = Input.GetAxis(_horizontal);
 
-    private void HandleInput()
-    {
-        InputX = Input.GetAxis(_horizontal);
+        if (Input.GetKeyDown(_buttonSpace))
+            _isJump = true;
 
         if (Input.GetMouseButtonDown(_leftButton))
-            _animator.Attack();
-        else if (Input.GetKeyDown(_buttonSpace))
-            _mover.Jump();
+            _isAttack = true;
     }
 
-    private void SetAnimation()
+    public bool GetIsJump() => GetBoolAsTrigger(ref _isJump);
+    public bool GetIsAttack() => GetBoolAsTrigger(ref _isAttack);
+
+    private bool GetBoolAsTrigger(ref bool value)
     {
-        if (InputX != 0)
-            _animator.SetSpeed(_mover.Speed);
-        else
-            _animator.SetSpeed(0);
+        bool localValue = value;
+
+        value = false;
+        return localValue;
     }
 }

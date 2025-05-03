@@ -4,7 +4,7 @@ using System;
 public class TargetFinder : MonoBehaviour
 {
     public event Action<Player> Entered;
-    public event Action Exited;
+    public event Action<Player> Exited;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -18,7 +18,7 @@ public class TargetFinder : MonoBehaviour
     {
         if (collision.GetComponent<Player>() != null)
         {
-            Exited?.Invoke();
+            Exited?.Invoke(null);
         }
     }
 }

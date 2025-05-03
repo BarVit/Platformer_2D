@@ -4,6 +4,7 @@ using System.Linq;
 [RequireComponent(typeof(Weapon))]
 public class DamageApllier : MonoBehaviour
 {
+    [SerializeField] private AnimationsEvents _animationsEvents;
     [SerializeField] private Transform _attackPoint;
 
     private Weapon _weapon;
@@ -15,7 +16,17 @@ public class DamageApllier : MonoBehaviour
         _weapon = GetComponent<Weapon>();
     }
 
-    public void Apply()
+    private void OnEnable()
+    {
+        _animationsEvents.Attacking += ApplyDamage;
+    }
+
+    private void OnDisable()
+    {
+        _animationsEvents.Attacking -= ApplyDamage;
+    }
+
+    private void ApplyDamage()
     {
         Collider2D[] targets = Physics2D.OverlapCircleAll(_attackPoint.position, _weapon.Range);
 

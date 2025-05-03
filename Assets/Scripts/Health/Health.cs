@@ -25,7 +25,7 @@ public class Health : MonoBehaviour, IDamageable
 
     public void Heal(int healing)
     {
-        if (Value < MaxValue)
+        if (healing > 0 && Value < MaxValue)
         {
             Value = Mathf.Clamp(Value + healing, Value, MaxValue);
             Changed?.Invoke(Value);

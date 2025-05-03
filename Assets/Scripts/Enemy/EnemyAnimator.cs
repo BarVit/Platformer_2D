@@ -3,8 +3,6 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class EnemyAnimator : MonoBehaviour
 {
-    [SerializeField] private DamageApllier _damageApllier;
-
     private Animator _animator;
     private int _speedHash = Animator.StringToHash("speed");
     private int _attackHash = Animator.StringToHash("attack");
@@ -22,10 +20,5 @@ public class EnemyAnimator : MonoBehaviour
     public void Attack()
     {
         _animator.SetTrigger(_attackHash);
-    }
-
-    public void ApplyDamage()
-    {
-        _damageApllier.Apply();
     }
 }

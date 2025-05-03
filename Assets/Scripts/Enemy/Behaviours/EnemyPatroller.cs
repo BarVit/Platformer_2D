@@ -1,14 +1,10 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyMover))]
-public class EnemyPatroller : MonoBehaviour
+public class EnemyPatroller : EnemyBehaviour
 {
     [SerializeField] private Transform[] _waypointsTransforms;
-    [SerializeField] private EnemyAnimator _animator;
-    [SerializeField] private FaceDirectioneer _spriteDirection;
 
-    private EnemyMover _mover;
     private Coroutine _waiterAtWaypoint;
     private Vector3[] _waypoints;
     private Vector3 _waypoint;
@@ -17,11 +13,9 @@ public class EnemyPatroller : MonoBehaviour
     private int _direction = 0;
     private int _nonDirection = 0;
     private bool _isWaiting = false;
-    private bool _isPatrolling = true;
 
-    private void Awake()
+    public override void Awake()
     {
-        _mover = GetComponent<EnemyMover>();
         _waypoints = new Vector3[_waypointsTransforms.Length];
 
         for (int i = 0; i < _waypointsTransforms.Length; i++)
@@ -30,28 +24,25 @@ public class EnemyPatroller : MonoBehaviour
         _waypoint = _waypoints[_index];
     }
 
-    private void Update()
+    public override void Enter()
     {
-        if (_isPatrolling)
-        {
-            DefineDirection();
-            SetAnimation();
-            _spriteDirection.SetFaceDirection(_direction);
-            Patrol();
-        }
-    }
-
-    public void StartPatrol()
-    {
-        _isPatrolling = true;
+        IsComplete = false;
         _isWaiting = true;
         _waiterAtWaypoint = StartCoroutine(WaitAtWaypoint());
     }
 
-    public void StopPatrol()
+    public override void Do()
     {
-        _isPatrolling = false;
-        StopCoroutine(_waiterAtWaypoint);
+        DefineDirection();
+        SpriteDirection.SetFaceDirection(_direction);
+        SetAnimation();
+        Patrol();
+    }
+
+    public override void Exit()
+    {
+        if(_waiterAtWaypoint != null)
+            StopCoroutine(_waiterAtWaypoint);
     }
 
     private void DefineDirection()
@@ -77,22 +68,22 @@ public class EnemyPatroller : MonoBehaviour
     private void SetAnimation()
     {
         if (_direction == _nonDirection)
-            _animator.SetSpeed(0);
+            Animator.SetSpeed(0);
         else
-            _animator.SetSpeed(_mover.Speed);
+            Animator.SetSpeed(Mover.Speed);
     }
 
     private void Patrol()
     {
         if (_direction == _nonDirection && _isWaiting == false)
         {
+            Mover.Stop();
             _isWaiting = true;
-            _mover.Stop();
             _waiterAtWaypoint = StartCoroutine(WaitAtWaypoint());
         }
         else
         {
-            _mover.Move(_direction);
+            Mover.Move(_direction);
         }
     }
 
