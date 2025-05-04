@@ -14,4 +14,10 @@ public class Coin : Item
         GetComponent<Animator>().Play(_idleHash, 0, 0.5f);
         Value = Random.Range(_minValue, _maxValue + 1);
     }
+
+    public override void Pick(IPickable pickable)
+    {
+        base.Pick(pickable);
+        pickable.Pick(this);
+    }
 }

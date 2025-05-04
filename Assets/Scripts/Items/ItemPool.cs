@@ -30,13 +30,13 @@ public class ItemPool : MonoBehaviour
     {
         Item item = _pool.Get();
 
-        item.Taken += Realese;
+        item.Picked += Realese;
         return item;
     }
 
     public void Realese(Item item)
     {
-        item.Taken -= Realese;
+        item.Picked -= Realese;
         _pool.Release(item);
     }
 }

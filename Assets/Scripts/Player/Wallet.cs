@@ -4,8 +4,9 @@ public class Wallet : MonoBehaviour
 {
     [SerializeField] private int _money = 0;
 
-    public void TakeCoin(int value)
+    public void PickCoin(int value)
     {
-        _money += value;
+        if(value > 0)
+            _money += value;
     }
 }

@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class EnemyPatroller : EnemyBehaviour
+public class EnemyStatePatroller : EnemyState
 {
     [SerializeField] private Transform[] _waypointsTransforms;
 
@@ -41,7 +41,7 @@ public class EnemyPatroller : EnemyBehaviour
 
     public override void Exit()
     {
-        if(_waiterAtWaypoint != null)
+        if (_waiterAtWaypoint != null)
             StopCoroutine(_waiterAtWaypoint);
     }
 

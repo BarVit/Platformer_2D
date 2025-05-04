@@ -12663,6 +12663,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1010206862209647033, guid: bca33b3a7070343baa3b9fc924811d58, type: 3}
+      propertyPath: _enemyState
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1460552738437075144, guid: bca33b3a7070343baa3b9fc924811d58, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -12719,7 +12723,8 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3944330486864337298, guid: bca33b3a7070343baa3b9fc924811d58, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

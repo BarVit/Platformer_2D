@@ -442,7 +442,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7162054412985847235}
   m_Layer: 0
-  m_Name: Behaviours
+  m_Name: States
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

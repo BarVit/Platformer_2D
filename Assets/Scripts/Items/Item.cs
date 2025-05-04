@@ -1,12 +1,12 @@
-using UnityEngine;
 using System;
+using UnityEngine;
 
 public abstract class Item : MonoBehaviour
 {
-    public event Action<Item> Taken;
+    public event Action<Item> Picked;
 
-    public void Take()
+    public virtual void Pick(IPickable pickable)
     {
-        Taken?.Invoke(this);
+        Picked?.Invoke(this);
     }
 }

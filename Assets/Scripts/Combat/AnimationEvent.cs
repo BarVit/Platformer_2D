@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class AnimationsEvents : MonoBehaviour
+public class AnimationEvent : MonoBehaviour
 {
     public event Action Attacking;
 

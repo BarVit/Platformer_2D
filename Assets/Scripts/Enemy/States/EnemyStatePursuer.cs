@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyPursuer : EnemyBehaviour
+public class EnemyStatePursuer : EnemyState
 {
     [SerializeField] private float _hitRangeX = 1f;
 

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class EnemyBehaviour : MonoBehaviour
+public abstract class EnemyState : MonoBehaviour
 {
     [SerializeField] protected EnemyAnimator Animator;
     [SerializeField] protected FaceDirectioneer SpriteDirection;
@@ -9,14 +9,14 @@ public abstract class EnemyBehaviour : MonoBehaviour
     public Player Target { get; protected set; }
     public bool IsComplete { get; protected set; }
 
+    public abstract void Enter();
+    public abstract void Do();
+    public abstract void Exit();
+
     public virtual void Awake()
     {
         IsComplete = false;
     }
-
-    public virtual void Enter() { }
-    public virtual void Do() { }
-    public virtual void Exit() { }
 
     public void SetTarget(Player target)
     {

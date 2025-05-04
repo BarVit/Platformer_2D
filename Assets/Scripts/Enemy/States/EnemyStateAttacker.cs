@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyAttacker : EnemyBehaviour
+public class EnemyStateAttacker : EnemyState
 {
     [SerializeField] private AnimationHandler _animationHandler;
 
@@ -15,5 +15,9 @@ public class EnemyAttacker : EnemyBehaviour
     {
         if (_animationHandler.IsAttacking == false)
             IsComplete = true;
+    }
+
+    public override void Exit()
+    {
     }
 }
