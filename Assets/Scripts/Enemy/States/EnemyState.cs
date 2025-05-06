@@ -6,20 +6,9 @@ public abstract class EnemyState : MonoBehaviour
     [SerializeField] protected FaceDirectioneer SpriteDirection;
     [SerializeField] protected EnemyMover Mover;
 
-    public Player Target { get; protected set; }
-    public bool IsComplete { get; protected set; }
+    public virtual void SetTarget(Player target) { }
 
-    public abstract void Enter();
-    public abstract void Do();
-    public abstract void Exit();
-
-    public virtual void Awake()
-    {
-        IsComplete = false;
-    }
-
-    public void SetTarget(Player target)
-    {
-        Target = target;
-    }
+    public virtual void Do() { }
+    public virtual void Enter() { }
+    public virtual void Exit() { }
 }

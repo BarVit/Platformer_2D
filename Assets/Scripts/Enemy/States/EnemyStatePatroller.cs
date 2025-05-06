@@ -14,7 +14,7 @@ public class EnemyStatePatroller : EnemyState
     private int _nonDirection = 0;
     private bool _isWaiting = false;
 
-    public override void Awake()
+    private void Awake()
     {
         _waypoints = new Vector3[_waypointsTransforms.Length];
 
@@ -26,7 +26,6 @@ public class EnemyStatePatroller : EnemyState
 
     public override void Enter()
     {
-        IsComplete = false;
         _isWaiting = true;
         _waiterAtWaypoint = StartCoroutine(WaitAtWaypoint());
     }

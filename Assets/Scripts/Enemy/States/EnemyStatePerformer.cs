@@ -1,69 +1,46 @@
 using UnityEngine;
 
-public class EnemyStatePerformer : MonoBehaviour
+public class EnemyStateExecutor : MonoBehaviour
 {
-    [SerializeField] private TargetFinder _targetFinder;
-    [SerializeField] private EnemyStatePatroller _patroller;
-    [SerializeField] private EnemyStatePursuer _pursuer;
-    [SerializeField] private EnemyStateAttacker _attacker;
+    //[SerializeField] private AttackStateActivator _attackStateActivator;
+    [SerializeField] private PursuitStateActivator _pursuitStateActivator;
+    [SerializeField] private PatrolStateActivator _patrolStateActivator;
 
-    private Player Target;
     private EnemyState _currentState;
 
     private void OnEnable()
     {
-        _targetFinder.Entered += SetTarget;
-        _targetFinder.Exited += SetTarget;
+        //_attackStateActivator.Insided += SetState;
+        _pursuitStateActivator.Insided += SetState;
+        _patrolStateActivator.OutSided += SetState;
     }
 
     private void OnDisable()
     {
-        _targetFinder.Entered -= SetTarget;
-        _targetFinder.Exited -= SetTarget;
+        //_attackStateActivator.Insided -= SetState;
+        _pursuitStateActivator.Insided -= SetState;
+        _patrolStateActivator.OutSided -= SetState;
     }
 
     private void Start()
     {
-        _currentState = _patroller;
-        _currentState.Enter();
+        _currentState = _patrolStateActivator.GetState(null);
     }
 
     private void Update()
     {
-        if (_currentState.IsComplete)
-            SelectState();
-
         _currentState.Do();
     }
 
-    private void SelectState()
+    private void SetState(Player target, IEnemyStateActivable enemyStateActivator)
     {
-        EnemyState oldState = _currentState;
+        EnemyState newState = enemyStateActivator.GetState(target);
 
-        if (Target == null)
+        if (_currentState != newState)
         {
-            _currentState = _patroller;
-        }
-        else if (_currentState == _pursuer)
-        {
-            _currentState = _attacker;
-        }
-        else
-        {
-            _currentState = _pursuer;
-            _currentState.SetTarget(Target);
-        }
-
-        if (_currentState != oldState)
-        {
-            oldState.Exit();
+            _currentState?.Exit();
+            _currentState = newState;
             _currentState.Enter();
         }
-    }
-
-    private void SetTarget(Player target)
-    {
-        Target = target;
-        SelectState();
     }
 }

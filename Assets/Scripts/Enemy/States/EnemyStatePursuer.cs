@@ -1,63 +1,38 @@
-using UnityEngine;
-
 public class EnemyStatePursuer : EnemyState
 {
-    [SerializeField] private float _hitRangeX = 1f;
-
+    private Player _target;
     private int _direction = 0;
     private int _leftDirection = -1;
     private int _rightDirection = 1;
 
-    public override void Enter()
-    {
-        IsComplete = false;
-    }
-
     public override void Do()
     {
-        if (IsTargetInHitRange() && IsTargetInFront())
+        if(_target != null)
         {
-            Mover.Stop();
-            Animator.SetSpeed(0);
-            IsComplete = true;
-        }
-        else
-        {
-            Approach();
+            DefineDirection();
+            SpriteDirection.SetFaceDirection(_direction);
+            Mover.Move(_direction);
+            Animator.SetSpeed(Mover.Speed);
         }
     }
 
     public override void Exit()
     {
-        Target = null;
+        _target = null;
+        Mover.Stop();
+        Animator.SetSpeed(0);
     }
 
-    private void Approach()
+    public override void SetTarget(Player target)
     {
-        DefineDirection();
-        SpriteDirection.SetFaceDirection(_direction);
-        Mover.Move(_direction);
-        Animator.SetSpeed(Mover.Speed);
+        _target = target;
     }
 
     private void DefineDirection()
     {
-        if (transform.position.x > Target.transform.position.x)
+        if (transform.position.x > _target.transform.position.x)
             _direction = _leftDirection;
-        else if (transform.position.x < Target.transform.position.x)
+        else if (transform.position.x < _target.transform.position.x)
             _direction = _rightDirection;
-    }
-
-    private bool IsTargetInHitRange()
-    {
-        return Mathf.Abs(transform.position.x - Target.transform.position.x) < _hitRangeX;
-    }
-
-    private bool IsTargetInFront()
-    {
-        if (_direction == _rightDirection)
-            return transform.position.x < Target.transform.position.x;
-        else
-            return transform.position.x > Target.transform.position.x;
     }
 }
