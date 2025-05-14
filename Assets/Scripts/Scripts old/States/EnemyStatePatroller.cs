@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class EnemyStatePatroller : EnemyState
+public class EnemyStatePatroller : EnemyState2
 {
     [SerializeField] private Transform[] _waypointsTransforms;
 

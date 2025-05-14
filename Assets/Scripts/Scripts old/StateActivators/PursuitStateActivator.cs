@@ -1,15 +1,15 @@
 using UnityEngine;
 using System;
 
-public class PursuitStateActivator : MonoBehaviour, IEnemyStateActivable
+public class PursuitStateActivator : EnemyStateActivator
 {
     [SerializeField] private EnemyStatePursuer _pursuer;
 
-    public event Action<Player, IEnemyStateActivable> Insided;
+    public event Action<Player, EnemyStateActivator> Insided;
 
-    public EnemyState GetState(Player player)
+    public override EnemyState2 GetState()
     {
-        _pursuer.SetTarget(player);
+        Debug.Log("return _pursuer");
         return _pursuer;
     }
 
@@ -17,6 +17,7 @@ public class PursuitStateActivator : MonoBehaviour, IEnemyStateActivable
     {
         if (collision.TryGetComponent(out Player player))
         {
+            Debug.Log("player entered");
             Insided?.Invoke(player, this);
         }
     }

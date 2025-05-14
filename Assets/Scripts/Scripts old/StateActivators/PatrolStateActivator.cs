@@ -1,14 +1,15 @@
 using System;
 using UnityEngine;
 
-public class PatrolStateActivator : MonoBehaviour, IEnemyStateActivable
+public class PatrolStateActivator : EnemyStateActivator
 {
     [SerializeField] private EnemyStatePatroller _patroller;
 
-    public event Action<Player, IEnemyStateActivable> OutSided;
+    public event Action<Player, EnemyStateActivator> OutSided;
 
-    public EnemyState GetState(Player player)
+    public override EnemyState2 GetState()
     {
+        Debug.Log("return _patroller");
         return _patroller;
     }
 
@@ -16,6 +17,7 @@ public class PatrolStateActivator : MonoBehaviour, IEnemyStateActivable
     {
         if (collision.GetComponent<Player>() != null)
         {
+            Debug.Log("player exited");
             OutSided?.Invoke(null, this);
         }
     }

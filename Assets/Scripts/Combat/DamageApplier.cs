@@ -4,7 +4,7 @@ using System.Linq;
 [RequireComponent(typeof(Weapon))]
 public class DamageApllier : MonoBehaviour
 {
-    [SerializeField] private AnimationEvent _animationsEvents;
+    [SerializeField] private AnimationEvent _animationEvent;
     [SerializeField] private Transform _attackPoint;
 
     private Weapon _weapon;
@@ -18,12 +18,12 @@ public class DamageApllier : MonoBehaviour
 
     private void OnEnable()
     {
-        _animationsEvents.Attacking += ApplyDamage;
+        _animationEvent.Attacking += ApplyDamage;
     }
 
     private void OnDisable()
     {
-        _animationsEvents.Attacking -= ApplyDamage;
+        _animationEvent.Attacking -= ApplyDamage;
     }
 
     private void ApplyDamage()
