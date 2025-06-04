@@ -12,14 +12,12 @@ public class SmoothHealthBar : HealthBar
         if(_healthChanger != null)
             StopCoroutine(_healthChanger);
 
-        _healthChanger = StartCoroutine(SmoothlyHealthChange(HealthBarSlider.value, health));
+        _healthChanger = StartCoroutine(SmoothlyHealthChange(HealthBarSlider.value, (float)health / Health.MaxValue));
     }
 
     private IEnumerator SmoothlyHealthChange(float startHealth, float targetHealth)
     {
         float elapsedTime = 0f;
-
-        targetHealth /= Health.MaxValue;
 
         while (elapsedTime < _smoothlyChangingTime)
         {

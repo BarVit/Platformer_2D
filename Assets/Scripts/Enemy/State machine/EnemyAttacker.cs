@@ -1,24 +1,27 @@
-using UnityEngine;
-
 public class EnemyAttacker : EnemyState
 {
-    [SerializeField] private EnemyPatroller _patroller;
-    [SerializeField] private EnemyPursuer _pursuer;
-    [SerializeField] private AnimationHandler _animationHandler;
+    public EnemyAttacker(StateMachine stateMachine) : base(stateMachine)
+    {
+    }
 
     public override void Enter()
     {
-        Animator.Attack();
-        _animationHandler.StartAttackAnimation();
+        StateMachine.Animator.Attack();
+        StateMachine.AnimationHandler.StartAttackAnimation();
     }
 
     public override EnemyState RunState()
     {
-        if (_animationHandler.IsAttacking)
-            return this;
-        else if (TargetFinder.Target != null)
-            return _pursuer;
+        if(StateMachine.TargetFinder.Target != null)
+        {
+            if (StateMachine.AnimationHandler.IsAttacking && StateMachine.TargetFinder.Target.IsAlive)
+                return this;
+            else
+                return StateMachine.Pursuer;
+        }
         else
-            return _patroller;
+        {
+            return StateMachine.Patroller;
+        }
     }
 }

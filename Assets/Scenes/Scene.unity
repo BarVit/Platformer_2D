@@ -123,6 +123,16 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!50 &11662505 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 8712140671111029643, guid: bca33b3a7070343baa3b9fc924811d58, type: 3}
+  m_PrefabInstance: {fileID: 6779756557275363311}
+  m_PrefabAsset: {fileID: 0}
+--- !u!70 &11662506 stripped
+CapsuleCollider2D:
+  m_CorrespondingSourceObject: {fileID: 6779169322906130702, guid: bca33b3a7070343baa3b9fc924811d58, type: 3}
+  m_PrefabInstance: {fileID: 6779756557275363311}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &46085539
 GameObject:
   m_ObjectHideFlags: 0
@@ -1307,7 +1317,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 446597343}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2036,7 +2046,7 @@ GameObject:
   - component: {fileID: 830811183}
   - component: {fileID: 830811185}
   - component: {fileID: 830811184}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2665,7 +2675,7 @@ GameObject:
   - component: {fileID: 963313116}
   - component: {fileID: 963313118}
   - component: {fileID: 963313117}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4035,7 +4045,7 @@ GameObject:
   - component: {fileID: 1559319080}
   - component: {fileID: 1559319079}
   - component: {fileID: 1559319078}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4139,7 +4149,7 @@ GameObject:
   - component: {fileID: 1572960954}
   - component: {fileID: 1572960953}
   - component: {fileID: 1572960957}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Skin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5584,7 +5594,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1655448886}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AttackPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5895,8 +5905,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a93c779d3b7da477d82fe271ffd78dea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Health: {fileID: 7858146228562064367}
   _tmpText: {fileID: 1760191414}
-  _health: {fileID: 7858146228562064367}
 --- !u!114 &1760191414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6576,7 +6586,7 @@ GameObject:
   - component: {fileID: 1892923740}
   - component: {fileID: 1892923742}
   - component: {fileID: 1892923741}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12541,7 +12551,7 @@ GameObject:
   - component: {fileID: 7858146228562064371}
   - component: {fileID: 7858146228562064370}
   - component: {fileID: 7858146228562064369}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12621,7 +12631,7 @@ GameObject:
   - component: {fileID: 3848920154102229523}
   - component: {fileID: 9199531422255389463}
   - component: {fileID: 6440202316732299863}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GroundSensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12735,6 +12745,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7406362937711582063, guid: bca33b3a7070343baa3b9fc924811d58, type: 3}
+      propertyPath: _rigidbody2D
+      value: 
+      objectReference: {fileID: 11662505}
+    - target: {fileID: 7406362937711582063, guid: bca33b3a7070343baa3b9fc924811d58, type: 3}
+      propertyPath: _capsuleCollider2D
+      value: 
+      objectReference: {fileID: 11662506}
     - target: {fileID: 8943226994141895867, guid: bca33b3a7070343baa3b9fc924811d58, type: 3}
       propertyPath: m_Size.x
       value: 9
@@ -12810,7 +12828,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cbf9a8d24f34ff59b9c8fecd670106, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Damage>k__BackingField: 20
+  <Damage>k__BackingField: 40
   <Range>k__BackingField: 0.64
 --- !u!114 &7858146228562064366
 MonoBehaviour:
@@ -12852,7 +12870,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _faceDirectioneer: {fileID: 1572960954}
   _groundSensor: {fileID: 6440202316732299863}
-  _playerAnimator: {fileID: 1572960953}
+  _animator: {fileID: 1572960953}
 --- !u!114 &7858146228562064369
 MonoBehaviour:
   m_ObjectHideFlags: 0

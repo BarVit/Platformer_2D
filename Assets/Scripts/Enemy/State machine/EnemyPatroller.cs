@@ -3,9 +3,7 @@ using UnityEngine;
 
 public class EnemyPatroller : EnemyState
 {
-    [SerializeField] private EnemyPursuer _pursuer;
-    [SerializeField] private Transform[] _waypointsTransforms;
-
+    private Transform[] _waypointsTransforms;
     private Coroutine _waiterAtWaypoint;
     private Vector3[] _waypoints;
     private Vector3 _waypoint;
@@ -14,6 +12,12 @@ public class EnemyPatroller : EnemyState
     private int _direction = 0;
     private int _nonDirection = 0;
     private bool _isWaiting = false;
+
+    public EnemyPatroller(StateMachine stateMachine, Transform[] waypoints) : base(stateMachine)
+    {
+        _waypointsTransforms = waypoints;
+        Awake();
+    }
 
     private void Awake()
     {
@@ -28,26 +32,27 @@ public class EnemyPatroller : EnemyState
     public override void Enter()
     {
         _isWaiting = true;
-        _waiterAtWaypoint = StartCoroutine(WaitAtWaypoint());
+        _waiterAtWaypoint = Coroutines.StartRoutine(WaitAtWaypoint());
     }
 
     public override EnemyState RunState()
     {
         DefineDirection();
-        SpriteDirection.SetFaceDirection(_direction);
+        StateMachine.SpriteDirection.SetFaceDirection(_direction);
         SetAnimation();
         Patrol();
 
-        if (TargetFinder.Target == null)
+        if (StateMachine.TargetFinder.Target == null)
             return this;
         else
-            return _pursuer;
+            return StateMachine.Pursuer;
     }
 
     public override void Exit()
     {
+        StateMachine.Mover.Stop();
         if (_waiterAtWaypoint != null)
-            StopCoroutine(_waiterAtWaypoint);
+            Coroutines.StopRoutine(_waiterAtWaypoint);
     }
 
     private void DefineDirection()
@@ -57,15 +62,15 @@ public class EnemyPatroller : EnemyState
 
         if (_isWaiting)
             _direction = _nonDirection;
-        else if (transform.position.x <= _waypoint.x && _direction == leftDirection)
+        else if (StateMachine.transform.position.x <= _waypoint.x && _direction == leftDirection)
             _direction = _nonDirection;
-        else if (transform.position.x >= _waypoint.x && _direction == rightDirection)
+        else if (StateMachine.transform.position.x >= _waypoint.x && _direction == rightDirection)
             _direction = _nonDirection;
         else
         {
-            if (transform.position.x < _waypoint.x)
+            if (StateMachine.transform.position.x < _waypoint.x)
                 _direction = rightDirection;
-            else if (transform.position.x > _waypoint.x)
+            else if (StateMachine.transform.position.x > _waypoint.x)
                 _direction = leftDirection;
         }
     }
@@ -73,22 +78,22 @@ public class EnemyPatroller : EnemyState
     private void SetAnimation()
     {
         if (_direction == _nonDirection)
-            Animator.SetSpeed(0);
+            StateMachine.Animator.SetSpeed(0);
         else
-            Animator.SetSpeed(Mover.Speed);
+            StateMachine.Animator.SetSpeed(StateMachine.Mover.Speed);
     }
 
     private void Patrol()
     {
         if (_direction == _nonDirection && _isWaiting == false)
         {
-            Mover.Stop();
+            StateMachine.Mover.Stop();
             _isWaiting = true;
-            _waiterAtWaypoint = StartCoroutine(WaitAtWaypoint());
+            _waiterAtWaypoint = Coroutines.StartRoutine(WaitAtWaypoint());
         }
         else
         {
-            Mover.Move(_direction);
+            StateMachine.Mover.Move(_direction);
         }
     }
 

@@ -6,6 +6,7 @@ public class EnemyAnimator : MonoBehaviour
     private Animator _animator;
     private int _speedHash = Animator.StringToHash("speed");
     private int _attackHash = Animator.StringToHash("attack");
+    private int _deathHash = Animator.StringToHash("death");
 
     private void Awake()
     {
@@ -20,5 +21,10 @@ public class EnemyAnimator : MonoBehaviour
     public void Attack()
     {
         _animator.SetTrigger(_attackHash);
+    }
+
+    public void Die()
+    {
+        _animator.SetTrigger(_deathHash);
     }
 }

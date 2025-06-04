@@ -7,6 +7,8 @@ public class DamageApllier : MonoBehaviour
     [SerializeField] private AnimationEvent _animationEvent;
     [SerializeField] private Transform _attackPoint;
 
+    private const string LayerName = "Units";
+
     private Weapon _weapon;
     private IDamageable _attacker;
 
@@ -28,7 +30,9 @@ public class DamageApllier : MonoBehaviour
 
     private void ApplyDamage()
     {
-        Collider2D[] targets = Physics2D.OverlapCircleAll(_attackPoint.position, _weapon.Range);
+        LayerMask layerMask = LayerMask.GetMask(LayerName);
+
+        Collider2D[] targets = Physics2D.OverlapCircleAll(_attackPoint.position, _weapon.Range, layerMask);
 
         IDamageable[] damageTakers = targets.Where(target => target.GetComponent<IDamageable>() != null)
             .Select(target => target.GetComponent<IDamageable>()).ToArray();

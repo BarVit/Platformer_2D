@@ -7,6 +7,9 @@ public class Health : MonoBehaviour, IDamageable
     [field: SerializeField] public int MaxValue { get; private set; }
 
     public event Action<int> Changed;
+    public event Action Died;
+
+    private float _timeToDestroy = 3f;
 
     private void Awake()
     {
@@ -21,6 +24,9 @@ public class Health : MonoBehaviour, IDamageable
             Value = Mathf.Clamp(Value - damage, 0, Value);
             Changed?.Invoke(Value);
         }
+
+        if (Value <= 0)
+            Die();
     }
 
     public void Heal(int healing)
@@ -30,5 +36,11 @@ public class Health : MonoBehaviour, IDamageable
             Value = Mathf.Clamp(Value + healing, Value, MaxValue);
             Changed?.Invoke(Value);
         }
+    }
+
+    public void Die()
+    {
+        Died?.Invoke();
+        Destroy(gameObject, _timeToDestroy);
     }
 }

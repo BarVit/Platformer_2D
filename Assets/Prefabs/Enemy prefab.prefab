@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2266503942996806262}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PatrolWaypoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 1460552738437075144}
   - component: {fileID: 694436028102156954}
   - component: {fileID: 6148312429552970150}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,8 +115,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3527355379226009510}
-  - component: {fileID: 1618013488988491816}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Pursuit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,25 +137,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8333241593229519469}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1618013488988491816
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 737827234387818614}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9e876f7844a4438b9a2616d480d84ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TargetFinder: {fileID: 7691210706042443704}
-  Animator: {fileID: 7977692959577524697}
-  SpriteDirection: {fileID: 7970995647950213098}
-  Mover: {fileID: 1757266215953591188}
-  _attacker: {fileID: 3463885827133089764}
-  _patroller: {fileID: 434103914066697251}
-  _hitRangeX: 1
 --- !u!1 &1616473847950327181
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,7 +152,8 @@ GameObject:
   - component: {fileID: 1757266215953591188}
   - component: {fileID: 3097074090263457771}
   - component: {fileID: 7050739312739646568}
-  m_Layer: 0
+  - component: {fileID: 7406362937711582063}
+  m_Layer: 6
   m_Name: Enemy prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -273,8 +254,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9407b3593c67b43fb9fd07a6a9cb020f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Value>k__BackingField: 0
-  <MaxValue>k__BackingField: 0
+  <Value>k__BackingField: 100
+  <MaxValue>k__BackingField: 100
 --- !u!114 &1757266215953591188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -314,8 +295,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cbf9a8d24f34ff59b9c8fecd670106, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Damage>k__BackingField: 10
+  <Damage>k__BackingField: 25
   <Range>k__BackingField: 0.4
+--- !u!114 &7406362937711582063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616473847950327181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82ea1a71f285c41d282a43e3f9990b20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: {fileID: 4320647994521906811}
+  _stateMachine: {fileID: 2103418670236973208}
+  _animator: {fileID: 7977692959577524697}
+  _capsuleCollider2D: {fileID: 6779169322906130702}
+  _rigidbody2D: {fileID: 8712140671111029643}
 --- !u!1 &1806055232358536724
 GameObject:
   m_ObjectHideFlags: 0
@@ -328,7 +326,7 @@ GameObject:
   - component: {fileID: 3518367680670725947}
   - component: {fileID: 895581113085161109}
   - component: {fileID: 3352476449774008149}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -427,8 +425,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6702255362757507883}
-  - component: {fileID: 434103914066697251}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Patrol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -450,26 +447,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8333241593229519469}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &434103914066697251
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3623305625327832349}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb8c615c38063456eb35b324b02b3d88, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TargetFinder: {fileID: 7691210706042443704}
-  Animator: {fileID: 7977692959577524697}
-  SpriteDirection: {fileID: 7970995647950213098}
-  Mover: {fileID: 1757266215953591188}
-  _pursuer: {fileID: 1618013488988491816}
-  _waypointsTransforms:
-  - {fileID: 2157277063540180689}
-  - {fileID: 2266503942996806262}
 --- !u!1 &4853326514172210680
 GameObject:
   m_ObjectHideFlags: 0
@@ -481,7 +458,7 @@ GameObject:
   - component: {fileID: 3836883836191411880}
   - component: {fileID: 2611101001406660628}
   - component: {fileID: 161667038788145265}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -588,7 +565,7 @@ GameObject:
   - component: {fileID: 7977692959577524697}
   - component: {fileID: 7629071483873528053}
   - component: {fileID: 5269930420130123359}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Skin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -741,7 +718,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8097286131360585478}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AttackPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -773,7 +750,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8333241593229519469}
   - component: {fileID: 2103418670236973208}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: States
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -810,7 +787,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a5c01274ef56435abf59b181e3acce9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _patroller: {fileID: 434103914066697251}
+  TargetFinder: {fileID: 7691210706042443704}
+  Animator: {fileID: 7977692959577524697}
+  AnimationHandler: {fileID: 5269930420130123359}
+  SpriteDirection: {fileID: 7970995647950213098}
+  Mover: {fileID: 1757266215953591188}
+  Waypoints:
+  - {fileID: 2157277063540180689}
+  - {fileID: 2266503942996806262}
 --- !u!1 &7440704920297327137
 GameObject:
   m_ObjectHideFlags: 0
@@ -820,7 +804,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1569600995025564798}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -858,7 +842,7 @@ GameObject:
   - component: {fileID: 6780457820915080476}
   - component: {fileID: 7289508017492599854}
   - component: {fileID: 3764636203161552456}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -931,8 +915,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5036177184590917106}
-  - component: {fileID: 3463885827133089764}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -954,25 +937,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8333241593229519469}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3463885827133089764
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8842707803139209483}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e627639d66d6467d996efc5b7c182bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TargetFinder: {fileID: 7691210706042443704}
-  Animator: {fileID: 7977692959577524697}
-  SpriteDirection: {fileID: 7970995647950213098}
-  Mover: {fileID: 1757266215953591188}
-  _patroller: {fileID: 434103914066697251}
-  _pursuer: {fileID: 1618013488988491816}
-  _animationHandler: {fileID: 5269930420130123359}
 --- !u!1 &8938968959713940434
 GameObject:
   m_ObjectHideFlags: 0
@@ -984,7 +948,7 @@ GameObject:
   - component: {fileID: 8308541117345481465}
   - component: {fileID: 2982079997861587461}
   - component: {fileID: 7691210706042443704}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TargetFinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -2,25 +2,27 @@ using UnityEngine;
 
 public class EnemyPursuer : EnemyState
 {
-    [SerializeField] private EnemyAttacker _attacker;
-    [SerializeField] private EnemyPatroller _patroller;
-    [SerializeField] private float _hitRangeX = 1f;
+    private float _hitRangeX = 1f;
 
     private int _direction = 0;
     private int _leftDirection = -1;
     private int _rightDirection = 1;
 
+    public EnemyPursuer(StateMachine stateMachine) : base(stateMachine)
+    {
+    }
+
     public override EnemyState RunState()
     {
-        if (TargetFinder.Target == null)
+        if (StateMachine.TargetFinder.Target == null || StateMachine.TargetFinder.Target.IsAlive == false)
         {
-            return _patroller;
+            return StateMachine.Patroller;
         }
         else if (IsTargetInHitRange() && IsTargetInFront())
         {
-            Mover.Stop();
-            Animator.SetSpeed(0);
-            return _attacker;
+            StateMachine.Mover.Stop();
+            StateMachine.Animator.SetSpeed(0);
+            return StateMachine.Attacker;
         }
         else
         {
@@ -32,29 +34,29 @@ public class EnemyPursuer : EnemyState
     private void Approach()
     {
         DefineDirection();
-        SpriteDirection.SetFaceDirection(_direction);
-        Mover.Move(_direction);
-        Animator.SetSpeed(Mover.Speed);
+        StateMachine.SpriteDirection.SetFaceDirection(_direction);
+        StateMachine.Mover.Move(_direction);
+        StateMachine.Animator.SetSpeed(StateMachine.Mover.Speed);
     }
 
     private void DefineDirection()
     {
-        if (transform.position.x > TargetFinder.Target?.transform.position.x)
+        if (StateMachine.transform.position.x > StateMachine.TargetFinder.Target?.transform.position.x)
             _direction = _leftDirection;
-        else if (transform.position.x < TargetFinder.Target?.transform.position.x)
+        else if (StateMachine.transform.position.x < StateMachine.TargetFinder.Target?.transform.position.x)
             _direction = _rightDirection;
     }
 
     private bool IsTargetInHitRange()
     {
-        return Mathf.Abs(transform.position.x - TargetFinder.Target.transform.position.x) < _hitRangeX;
+        return Mathf.Abs(StateMachine.transform.position.x - StateMachine.TargetFinder.Target.transform.position.x) < _hitRangeX;
     }
 
     private bool IsTargetInFront()
     {
         if (_direction == _rightDirection)
-            return transform.position.x < TargetFinder.Target?.transform.position.x;
+            return StateMachine.transform.position.x < StateMachine.TargetFinder.Target?.transform.position.x;
         else
-            return transform.position.x > TargetFinder.Target?.transform.position.x;
+            return StateMachine.transform.position.x > StateMachine.TargetFinder.Target?.transform.position.x;
     }
 }

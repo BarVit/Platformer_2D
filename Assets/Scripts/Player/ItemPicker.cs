@@ -12,6 +12,12 @@ public class ItemPicker : MonoBehaviour, IPickable
         _playerHealth = GetComponent<Health>();
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.transform.TryGetComponent(out Item item))
+            item.Pick(this);
+    }
+
     public void Pick(Coin coin)
     {
         _wallet.PickCoin(coin.Value);
@@ -20,11 +26,5 @@ public class ItemPicker : MonoBehaviour, IPickable
     public void Pick(HealthPotion healthPotion)
     {
         _playerHealth.Heal(healthPotion.HealingAmount);
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.transform.TryGetComponent(out Item item))
-            item.Pick(this);
     }
 }

@@ -1,13 +1,11 @@
-using UnityEngine;
-
-public abstract class EnemyState : MonoBehaviour
+public abstract class EnemyState
 {
-    [SerializeField] protected TargetFinder TargetFinder;
-    [SerializeField] protected EnemyAnimator Animator;
-    [SerializeField] protected FaceDirectioneer SpriteDirection;
-    [SerializeField] protected EnemyMover Mover;
-
     protected StateMachine StateMachine;
+
+    public EnemyState(StateMachine stateMachine)
+    {
+        StateMachine = stateMachine;
+    }
 
     public abstract EnemyState RunState();
 
