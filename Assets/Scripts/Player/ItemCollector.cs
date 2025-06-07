@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Wallet), typeof(Health))]
-public class ItemPicker : MonoBehaviour, IPickable
+public class ItemCollector : MonoBehaviour, ICollector
 {
     private Wallet _wallet;
     private Health _playerHealth;
@@ -18,12 +18,12 @@ public class ItemPicker : MonoBehaviour, IPickable
             item.Pick(this);
     }
 
-    public void Pick(Coin coin)
+    public void Collect(Coin coin)
     {
         _wallet.PickCoin(coin.Value);
     }
 
-    public void Pick(HealthPotion healthPotion)
+    public void Collect(HealthPotion healthPotion)
     {
         _playerHealth.Heal(healthPotion.HealingAmount);
     }

@@ -31,9 +31,7 @@ public class DamageApllier : MonoBehaviour
     private void ApplyDamage()
     {
         LayerMask layerMask = LayerMask.GetMask(LayerName);
-
         Collider2D[] targets = Physics2D.OverlapCircleAll(_attackPoint.position, _weapon.Range, layerMask);
-
         IDamageable[] damageTakers = targets.Where(target => target.GetComponent<IDamageable>() != null)
             .Select(target => target.GetComponent<IDamageable>()).ToArray();
 

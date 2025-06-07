@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AnimationHandler : MonoBehaviour
+public class AttackAnimationHandler : MonoBehaviour
 {
     public bool IsAttacking { get; private set; }
 

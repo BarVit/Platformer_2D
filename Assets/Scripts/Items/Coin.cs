@@ -15,9 +15,9 @@ public class Coin : Item
         Value = Random.Range(_minValue, _maxValue + 1);
     }
 
-    public override void Pick(IPickable pickable)
+    public override void Pick(ICollector pickable)
     {
         base.Pick(pickable);
-        pickable.Pick(this);
+        pickable.Collect(this);
     }
 }

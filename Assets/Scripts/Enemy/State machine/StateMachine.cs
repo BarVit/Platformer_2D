@@ -1,16 +1,19 @@
 using UnityEngine;
 
+[RequireComponent(typeof(TargetFinder))]
 public class StateMachine : MonoBehaviour
 {
+    [SerializeField] private Transform[] Waypoints;
+
+    [System.NonSerialized] public TargetFinder TargetFinder;
+
     public EnemyAttacker Attacker;
     public EnemyPursuer Pursuer;
     public EnemyPatroller Patroller;
-    public TargetFinder TargetFinder;
     public EnemyAnimator Animator;
-    public AnimationHandler AnimationHandler;
+    public AttackAnimationHandler AnimationHandler;
     public FaceDirectioneer SpriteDirection;
     public EnemyMover Mover;
-    public Transform[] Waypoints;
 
     private EnemyState _currentState;
     private bool _isRunning;
@@ -20,6 +23,7 @@ public class StateMachine : MonoBehaviour
         Attacker = new EnemyAttacker(this);
         Pursuer = new EnemyPursuer(this);
         Patroller = new EnemyPatroller(this, Waypoints);
+        TargetFinder = GetComponent<TargetFinder>();
     }
 
     private void Update()
