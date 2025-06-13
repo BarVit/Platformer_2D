@@ -13,7 +13,7 @@ public class EnemyPatroller : EnemyState
     private int _nonDirection = 0;
     private bool _isWaiting = false;
 
-    public EnemyPatroller(StateMachine stateMachine, Transform[] waypoints) : base(stateMachine)
+    public EnemyPatroller(EnemyStateMachine stateMachine, Transform[] waypoints) : base(stateMachine)
     {
         _waypointsTransforms = waypoints;
         Awake();

@@ -1,6 +1,6 @@
 public class EnemyAttacker : EnemyState
 {
-    public EnemyAttacker(StateMachine stateMachine) : base(stateMachine)
+    public EnemyAttacker(EnemyStateMachine stateMachine) : base(stateMachine)
     {
     }
 
@@ -14,7 +14,7 @@ public class EnemyAttacker : EnemyState
     {
         if(StateMachine.TargetFinder.Target != null)
         {
-            if (StateMachine.AnimationHandler.IsAttacking && StateMachine.TargetFinder.Target.IsAlive)
+            if (StateMachine.AnimationHandler.IsAttacking && StateMachine.TargetFinder.Target.Value > 0)
                 return this;
             else
                 return StateMachine.Pursuer;

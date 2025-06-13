@@ -8,13 +8,13 @@ public class EnemyPursuer : EnemyState
     private int _leftDirection = -1;
     private int _rightDirection = 1;
 
-    public EnemyPursuer(StateMachine stateMachine) : base(stateMachine)
+    public EnemyPursuer(EnemyStateMachine stateMachine) : base(stateMachine)
     {
     }
 
     public override EnemyState RunState()
     {
-        if (StateMachine.TargetFinder.Target == null || StateMachine.TargetFinder.Target.IsAlive == false)
+        if (StateMachine.TargetFinder.Target == null || StateMachine.TargetFinder.Target.Value == 0)
         {
             return StateMachine.Patroller;
         }

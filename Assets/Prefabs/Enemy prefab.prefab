@@ -263,7 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cbf9a8d24f34ff59b9c8fecd670106, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Damage>k__BackingField: 25
+  <Damage>k__BackingField: 10
   <Range>k__BackingField: 0.4
 --- !u!114 &7406362937711582063
 MonoBehaviour:
@@ -277,11 +277,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82ea1a71f285c41d282a43e3f9990b20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: {fileID: 4320647994521906811}
   _stateMachine: {fileID: 2103418670236973208}
   _animator: {fileID: 7977692959577524697}
-  _capsuleCollider2D: {fileID: 6779169322906130702}
-  _rigidbody2D: {fileID: 8712140671111029643}
 --- !u!1 &1806055232358536724
 GameObject:
   m_ObjectHideFlags: 0
@@ -725,7 +722,6 @@ MonoBehaviour:
   Waypoints:
   - {fileID: 2157277063540180689}
   - {fileID: 2266503942996806262}
-  TargetFinder: {fileID: 0}
   Animator: {fileID: 7977692959577524697}
   AnimationHandler: {fileID: 5269930420130123359}
   SpriteDirection: {fileID: 7970995647950213098}

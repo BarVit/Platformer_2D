@@ -8,6 +8,7 @@ public class PlayerAnimator : MonoBehaviour
     private int _groundedHash = Animator.StringToHash("grounded");
     private int _jumpHash = Animator.StringToHash("jump");
     private int _attackHash = Animator.StringToHash("attack");
+    private int _castSpellHash = Animator.StringToHash("castSpell");
     private int _deathHash = Animator.StringToHash("death");
 
     private void Awake()
@@ -26,6 +27,11 @@ public class PlayerAnimator : MonoBehaviour
         _animator.SetTrigger(_attackHash);
     }
 
+    public void CastSpell(bool isCasting)
+    {
+        _animator.SetBool(_castSpellHash, isCasting);
+    }
+
     public void ChangeGroundedBool(bool grounded)
     {
         _animator.SetBool(_groundedHash, grounded);
@@ -33,7 +39,7 @@ public class PlayerAnimator : MonoBehaviour
 
     public void SetSpeed(float speed)
     {
-        _animator.SetFloat(_speedHash, speed);
+        _animator.SetFloat(_speedHash, Mathf.Abs(speed));
     }
 
     public void Die()

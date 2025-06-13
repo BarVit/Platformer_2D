@@ -4,10 +4,9 @@ using UnityEngine;
 public class PlayerMover : MonoBehaviour
 {
     [SerializeField] private float _jumpForce = 7.5f;
+    [SerializeField] private float _speed = 4f;
 
     private Rigidbody2D _rigidbody2D;
-
-    [field : SerializeField] public float Speed = 4f;
 
     private void Awake()
     {
@@ -21,6 +20,6 @@ public class PlayerMover : MonoBehaviour
 
     public void Move(float direction)
     {
-        _rigidbody2D.velocity = new Vector2(direction * Speed, _rigidbody2D.velocity.y);
+        _rigidbody2D.velocity = new Vector2(direction * _speed, _rigidbody2D.velocity.y);
     }
 }

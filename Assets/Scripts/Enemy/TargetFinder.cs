@@ -4,7 +4,7 @@ using System.Collections;
 
 public class TargetFinder : MonoBehaviour
 {
-    public Player Target { get; private set; }
+    public Health Target { get; private set; }
 
     private const string LayerName = "Units";
     private Coroutine _targetFinder;
@@ -37,7 +37,7 @@ public class TargetFinder : MonoBehaviour
         Collider2D[] colliders = Physics2D.OverlapAreaAll(topRight, bottomLeft, _layerMask);
 
         Target = colliders.Where(collider => collider.GetComponent<Player>() != null)
-            .Select(collider => collider.GetComponent<Player>()).FirstOrDefault();
+            .Select(collider => collider.GetComponent<Health>()).FirstOrDefault();
 
         while (delay > 0)
         {

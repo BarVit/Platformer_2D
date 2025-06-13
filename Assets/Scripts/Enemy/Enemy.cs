@@ -1,9 +1,9 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(CapsuleCollider2D), typeof(Health))]
+[RequireComponent(typeof(Rigidbody2D), typeof(Health))]
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private StateMachine _stateMachine;
+    [SerializeField] private EnemyStateMachine _stateMachine;
     [SerializeField] private EnemyAnimator _animator;
 
     private Health _health;

@@ -1,8 +1,8 @@
 public abstract class EnemyState
 {
-    protected StateMachine StateMachine;
+    protected EnemyStateMachine StateMachine;
 
-    public EnemyState(StateMachine stateMachine)
+    public EnemyState(EnemyStateMachine stateMachine)
     {
         StateMachine = stateMachine;
     }

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(TargetFinder))]
-public class StateMachine : MonoBehaviour
+public class EnemyStateMachine : MonoBehaviour
 {
     [SerializeField] private Transform[] Waypoints;
 
@@ -52,6 +52,7 @@ public class StateMachine : MonoBehaviour
     public void Stop()
     {
         _currentState.Exit();
+        Mover.Stop();
         _isRunning = false;
     }
 }

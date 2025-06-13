@@ -7,6 +7,7 @@ public class InputHandler : MonoBehaviour
     private int _leftButton = 0;
     private bool _isJump = false;
     private bool _isAttack = false;
+    private bool _isCasting = false;
 
     public float Direction { get; private set; }
 
@@ -19,10 +20,14 @@ public class InputHandler : MonoBehaviour
 
         if (Input.GetMouseButtonDown(_leftButton))
             _isAttack = true;
+
+        if (Input.GetKeyDown(KeyCode.Q))
+            _isCasting = true;
     }
 
     public bool GetIsJump() => GetBoolAsTrigger(ref _isJump);
     public bool GetIsAttack() => GetBoolAsTrigger(ref _isAttack);
+    public bool GetIsCasting() => GetBoolAsTrigger(ref _isCasting);
 
     private bool GetBoolAsTrigger(ref bool value)
     {
