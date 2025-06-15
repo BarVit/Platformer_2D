@@ -9,11 +9,11 @@ public class TargetFinder : MonoBehaviour
     private const string LayerName = "Units";
     private Coroutine _targetFinder;
     private LayerMask _layerMask;
-    float _horizontalOffset = 4f;
-    float _topOffset = 0.25f;
-    float _bottomOffset = 0.25f;
-    float _findingRate = 0.2f;
-    bool _isFinding;
+    private float _horizontalOffset = 4f;
+    private float _topOffset = 0.25f;
+    private float _bottomOffset = 0.25f;
+    private float _findingRate = 0.2f;
+    private bool _isFinding;
 
     private void Awake()
     {

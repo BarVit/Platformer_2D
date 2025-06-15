@@ -38,11 +38,11 @@ public class EnemyPatroller : EnemyState
     public override EnemyState RunState()
     {
         DefineDirection();
-        StateMachine.SpriteDirection.SetFaceDirection(_direction);
+        StateMachine.Enemy.SpriteDirection.SetFaceDirection(_direction);
         SetAnimation();
         Patrol();
 
-        if (StateMachine.TargetFinder.Target == null)
+        if (StateMachine.Enemy.TargetFinder.Target == null)
             return this;
         else
             return StateMachine.Pursuer;
@@ -50,7 +50,7 @@ public class EnemyPatroller : EnemyState
 
     public override void Exit()
     {
-        StateMachine.Mover.Stop();
+        StateMachine.Enemy.Mover.Stop();
         if (_waiterAtWaypoint != null)
             Coroutines.StopRoutine(_waiterAtWaypoint);
     }
@@ -78,22 +78,22 @@ public class EnemyPatroller : EnemyState
     private void SetAnimation()
     {
         if (_direction == _nonDirection)
-            StateMachine.Animator.SetSpeed(0);
+            StateMachine.Enemy.Animator.SetSpeed(0);
         else
-            StateMachine.Animator.SetSpeed(StateMachine.Mover.Speed);
+            StateMachine.Enemy.Animator.SetSpeed(StateMachine.Enemy.Mover.Speed);
     }
 
     private void Patrol()
     {
         if (_direction == _nonDirection && _isWaiting == false)
         {
-            StateMachine.Mover.Stop();
+            StateMachine.Enemy.Mover.Stop();
             _isWaiting = true;
             _waiterAtWaypoint = Coroutines.StartRoutine(WaitAtWaypoint());
         }
         else
         {
-            StateMachine.Mover.Move(_direction);
+            StateMachine.Enemy.Mover.Move(_direction);
         }
     }
 

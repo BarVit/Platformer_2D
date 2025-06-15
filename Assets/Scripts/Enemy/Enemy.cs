@@ -1,21 +1,24 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(Health))]
+[RequireComponent(typeof(Health))]
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private EnemyStateMachine _stateMachine;
-    [SerializeField] private EnemyAnimator _animator;
+    [SerializeField] private EnemyDeadBody _enemyDeadBody;
 
     private Health _health;
-    private CapsuleCollider2D _capsuleCollider2D;
-    private Rigidbody2D _rigidbody2D;
+
+    [field : SerializeField] public Transform[] Waypoints { get; private set; }
+    [field : SerializeField] public EnemyAnimator Animator { get; private set; }
+    [field : SerializeField] public AttackAnimationHandler AnimationHandler { get; private set; }
+    [field : SerializeField] public FaceDirectioneer SpriteDirection { get; private set; }
+    [field : SerializeField] public EnemyMover Mover { get; private set; }
+    [field : SerializeField] public TargetFinder TargetFinder { get; private set; }
 
     private void Awake()
     {
         _health = GetComponent<Health>();
-        _capsuleCollider2D = GetComponent<CapsuleCollider2D>();
-        _rigidbody2D = GetComponent<Rigidbody2D>();
-        _stateMachine.Run();
+        _stateMachine.Activate(this);
     }
 
     private void OnEnable()
@@ -30,9 +33,12 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
-        _rigidbody2D.gravityScale = 0;
-        Destroy(_capsuleCollider2D);
+        EnemyDeadBody enemyDeadBody = Instantiate(_enemyDeadBody);
+
+        enemyDeadBody.gameObject.SetActive(true);
+        enemyDeadBody.transform.SetPositionAndRotation(transform.position, SpriteDirection.transform.rotation);
+        enemyDeadBody.Die();
         _stateMachine.Stop();
-        _animator.Die();
+        gameObject.SetActive(false);
     }
 }

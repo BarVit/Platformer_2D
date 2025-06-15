@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f41556a9e7794ee09366be66d7e704d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 2
+  <Speed>k__BackingField: 2
 --- !u!114 &3097074090263457771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,7 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9cbf9a8d24f34ff59b9c8fecd670106, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Damage>k__BackingField: 10
+  <Damage>k__BackingField: 15
   <Range>k__BackingField: 0.4
 --- !u!114 &7406362937711582063
 MonoBehaviour:
@@ -278,7 +278,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stateMachine: {fileID: 2103418670236973208}
-  _animator: {fileID: 7977692959577524697}
+  _enemyDeadBody: {fileID: 9208937589831781785, guid: 4f89c0a25265b44769c3db587a2bd576, type: 3}
+  <Waypoints>k__BackingField:
+  - {fileID: 2266503942996806262}
+  - {fileID: 2157277063540180689}
+  <Animator>k__BackingField: {fileID: 7977692959577524697}
+  <AnimationHandler>k__BackingField: {fileID: 5269930420130123359}
+  <SpriteDirection>k__BackingField: {fileID: 7970995647950213098}
+  <Mover>k__BackingField: {fileID: 1757266215953591188}
+  <TargetFinder>k__BackingField: {fileID: 5776478910187178975}
 --- !u!1 &1806055232358536724
 GameObject:
   m_ObjectHideFlags: 0
@@ -719,13 +727,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a5c01274ef56435abf59b181e3acce9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Waypoints:
-  - {fileID: 2157277063540180689}
-  - {fileID: 2266503942996806262}
-  Animator: {fileID: 7977692959577524697}
-  AnimationHandler: {fileID: 5269930420130123359}
-  SpriteDirection: {fileID: 7970995647950213098}
-  Mover: {fileID: 1757266215953591188}
+  <Enemy>k__BackingField: {fileID: 7406362937711582063}
 --- !u!114 &5776478910187178975
 MonoBehaviour:
   m_ObjectHideFlags: 0

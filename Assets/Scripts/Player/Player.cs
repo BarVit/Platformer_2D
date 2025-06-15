@@ -3,7 +3,8 @@ using UnityEngine;
 [RequireComponent(typeof(Health), typeof(PlayerActivity))]
 public class Player : MonoBehaviour
 {
-    [SerializeField] private PlayerAnimator _animator;
+    [SerializeField] private PlayerDeadBody _playerDeadBody;
+    [SerializeField] private FaceDirectioneer _faceRotation;
 
     private Health _health;
     private PlayerActivity _playerActivity;
@@ -31,6 +32,11 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
-        _animator.Die();
+        PlayerDeadBody playerDeadBody = Instantiate(_playerDeadBody);
+
+        playerDeadBody.gameObject.SetActive(true);
+        playerDeadBody.transform.SetPositionAndRotation(transform.position, _faceRotation.transform.rotation);
+        playerDeadBody.Die();
+        gameObject.SetActive(false);
     }
 }

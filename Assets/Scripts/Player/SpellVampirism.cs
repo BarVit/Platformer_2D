@@ -19,15 +19,13 @@ public class SpellVampirism : MonoBehaviour
     public event Action CooldownEnded;
     public event Action<float, float> TimeChanged;
 
-    [field : SerializeField] public float Duration { get; private set; }
-    [field : SerializeField] public float Cooldown { get; private set; }
+    [field: SerializeField] public float Duration { get; private set; } = 6f;
+    [field: SerializeField] public float Cooldown { get; private set; } = 4f;
 
     private void Awake()
     {
         _enemyFinder = GetComponent<EnemyFinder>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        Duration = 6f;
-        Cooldown = 4f;
     }
 
     public void Cast()

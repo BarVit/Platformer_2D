@@ -9,8 +9,6 @@ public class Health : MonoBehaviour, IDamageable
     public event Action<int> Changed;
     public event Action Died;
 
-    private float _timeToDestroy = 3f;
-
     private void Awake()
     {
         MaxValue = 100;
@@ -41,6 +39,5 @@ public class Health : MonoBehaviour, IDamageable
     public void Die()
     {
         Died?.Invoke();
-        Destroy(gameObject, _timeToDestroy);
     }
 }

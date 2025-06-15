@@ -3,27 +3,19 @@ using UnityEngine;
 [RequireComponent(typeof(TargetFinder))]
 public class EnemyStateMachine : MonoBehaviour
 {
-    [SerializeField] private Transform[] Waypoints;
-
-    [System.NonSerialized] public TargetFinder TargetFinder;
-
-    public EnemyAttacker Attacker;
-    public EnemyPursuer Pursuer;
-    public EnemyPatroller Patroller;
-    public EnemyAnimator Animator;
-    public AttackAnimationHandler AnimationHandler;
-    public FaceDirectioneer SpriteDirection;
-    public EnemyMover Mover;
-
     private EnemyState _currentState;
     private bool _isRunning;
+
+    public Enemy Enemy { get; private set; }
+    public EnemyAttacker Attacker { get; private set; }
+    public EnemyPursuer Pursuer { get; private set; }
+    public EnemyPatroller Patroller { get; private set; }
 
     private void Awake()
     {
         Attacker = new EnemyAttacker(this);
         Pursuer = new EnemyPursuer(this);
-        Patroller = new EnemyPatroller(this, Waypoints);
-        TargetFinder = GetComponent<TargetFinder>();
+        Patroller = new EnemyPatroller(this, Enemy.Waypoints);
     }
 
     private void Update()
@@ -42,8 +34,9 @@ public class EnemyStateMachine : MonoBehaviour
         }
     }
 
-    public void Run()
+    public void Activate(Enemy enemy)
     {
+        Enemy = enemy;
         _currentState = Patroller;
         _currentState.Enter();
         _isRunning = true;
@@ -52,7 +45,7 @@ public class EnemyStateMachine : MonoBehaviour
     public void Stop()
     {
         _currentState.Exit();
-        Mover.Stop();
+        Enemy.Mover.Stop();
         _isRunning = false;
     }
 }

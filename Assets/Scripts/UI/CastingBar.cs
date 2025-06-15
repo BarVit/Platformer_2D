@@ -5,14 +5,16 @@ using UnityEngine.UI;
 public class CastingBar : MonoBehaviour
 {
     [SerializeField] private SpellVampirism _spellVampirism;
-    [SerializeField] private float _castTime;
+    [SerializeField] private GameObject _backGround;
+    [SerializeField] private GameObject _fillArea;
 
     private Slider _slider;
 
     protected void Awake()
     {
         _slider = GetComponent<Slider>();
-        gameObject.SetActive(false);
+        _backGround.SetActive(false);
+        _fillArea.SetActive(false);
     }
 
     private void OnEnable()
@@ -24,14 +26,15 @@ public class CastingBar : MonoBehaviour
 
     private void OnDisable()
     {
-        _spellVampirism.SpellStarted += OnSpellStarted;
+        _spellVampirism.SpellStarted -= OnSpellStarted;
         _spellVampirism.TimeChanged -= OnTimeChanged;
         _spellVampirism.CooldownEnded -= OnCooldownEnded;
     }
 
     private void OnSpellStarted()
     {
-        gameObject.SetActive(true);
+        _backGround.SetActive(true);
+        _fillArea.SetActive(true);
     }
 
     private void OnTimeChanged(float time, float maxTime)
@@ -41,6 +44,7 @@ public class CastingBar : MonoBehaviour
 
     private void OnCooldownEnded()
     {
-        gameObject.SetActive(false);
+        _backGround.SetActive(false);
+        _fillArea.SetActive(false);
     }
 }

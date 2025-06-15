@@ -5,11 +5,12 @@ public class EnemyMover : MonoBehaviour
 {
     private Rigidbody2D _rigidbody2D;
 
-    [field : SerializeField] public float Speed = 2.0f;
+    [field: SerializeField] public float Speed { get; private set; }
 
     private void Awake()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
+        Speed = 2f;
     }
 
     public void Move(int direction)

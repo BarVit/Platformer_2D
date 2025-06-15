@@ -6,15 +6,15 @@ public class EnemyAttacker : EnemyState
 
     public override void Enter()
     {
-        StateMachine.Animator.Attack();
-        StateMachine.AnimationHandler.StartAttackAnimation();
+        StateMachine.Enemy.Animator.Attack();
+        StateMachine.Enemy.AnimationHandler.StartAttackAnimation();
     }
 
     public override EnemyState RunState()
     {
-        if(StateMachine.TargetFinder.Target != null)
+        if(StateMachine.Enemy.TargetFinder.Target != null)
         {
-            if (StateMachine.AnimationHandler.IsAttacking && StateMachine.TargetFinder.Target.Value > 0)
+            if (StateMachine.Enemy.AnimationHandler.IsAttacking && StateMachine.Enemy.TargetFinder.Target.Value > 0)
                 return this;
             else
                 return StateMachine.Pursuer;
